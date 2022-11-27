@@ -9,11 +9,11 @@ from yaml import safe_load, YAMLError
 
 
 def get_ticket_classes(eventbrite, event_id):
-    classes = eventbrite.get_event_ticket_classes(293921425897)
+    classes = eventbrite.get_event_ticket_classes(event_id)
     ticket_ids = {x['id']: x['name'] for x in classes['ticket_classes']}
     # [print(x['category']) for x in classes['ticket_classes']]
     # {print(x, v) for x, v in ticket_ids.items()}
-    #eventbrite.get_event_ticket_class_by_id(293921425897, ticket_class_id)
+    #eventbrite.get_event_ticket_class_by_id(event_id, ticket_class_id)
 
 
 def get_ticket_name(eventbrite, event_id, ticket_id):
@@ -42,12 +42,12 @@ def get_sheet(credentials, sheet_id):
 
 
 def update_attendee_sheet(credentials, sheet_id, worksheet_index, dataframe, workshop_title):
-    sh = get_sheet(credentials, sheet_id)
+    sheet = get_sheet(credentials, sheet_id)
     worksheet = sh.get_worksheet(worksheet_index)
     worksheet.update([dataframe.columns.values.tolist()] +
                      dataframe.values.tolist())
     timestamp = datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
-    sh.update_title(f"{workshop_title} Attendee List {timestamp}")
+    sheet.update_title(f"{workshop_title} Attendee List {timestamp}")
 
 def load_workshops(workshop_yaml):
     with open(workshop_yaml, 'r') as stream:
