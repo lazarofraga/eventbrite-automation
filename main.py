@@ -5,7 +5,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import pandas as pd
 import os
-from yaml import Loader, safe_load, YAMLError
+from yaml import safe_load, YAMLError
 
 
 def get_ticket_classes(eventbrite, event_id):
