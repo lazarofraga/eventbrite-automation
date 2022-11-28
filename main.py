@@ -43,7 +43,7 @@ def get_sheet(credentials, sheet_id):
 
 def update_attendee_sheet(credentials, sheet_id, worksheet_index, dataframe, workshop_title):
     sheet = get_sheet(credentials, sheet_id)
-    worksheet = sh.get_worksheet(worksheet_index)
+    worksheet = sheet.get_worksheet(worksheet_index)
     worksheet.update([dataframe.columns.values.tolist()] +
                      dataframe.values.tolist())
     timestamp = datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
