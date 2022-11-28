@@ -26,6 +26,7 @@ def get_ticket_name(eventbrite, event_id, ticket_id):
 
 def get_attendee_list(eventbrite, event_id):
     attendees = eventbrite.get(f'/events/{event_id}/attendees/')
+    print(attendees)
     attendee_list = attendees['attendees']
     while attendees['pagination']['has_more_items']:
         continuation_token = attendees['pagination']['continuation']
@@ -65,12 +66,13 @@ def main():
     eventbrite_api_key = os.getenv('EVENTBRITE_API_KEY')
     credentials = os.getenv('CREDENTIALS_PATH')
     workshop_yaml = os.getenv('WORKSHOPS_YAML')
+    event_id = os.getenv('EVENT_ID')
     eventbrite = Eventbrite(eventbrite_api_key)
 
     workshops = load_workshops(workshop_yaml)
     # print(workshops)
 
-    event_id = workshops['event_id']
+    
 
     # Get All Attendees
     attendees = get_attendee_list(eventbrite, event_id)
